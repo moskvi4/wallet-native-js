@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/moskvi4/wallet-native-js/issues"
   },
-  "homepage": "https://github.com/moskvi4/wallet-native-js#readme"
+  "homepage": "https://github.com/moskvi4/wallet-native-js#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }

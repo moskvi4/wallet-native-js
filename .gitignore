@@ -1,2 +1,5 @@
 #WebStorm files
 .idea/
+
+#npm files
+node_modules/
