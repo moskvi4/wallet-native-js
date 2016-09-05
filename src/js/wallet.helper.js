@@ -1,6 +1,6 @@
 wallet.helper.constants = {
-	INCOMING: 1,
-	OUTGOING: 2
+	INCOMING: 'incoming',
+	OUTGOING: 'outgoing'
 };
 
 wallet.helper.isFunction = function(functionToCheck) {
