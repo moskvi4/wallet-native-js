@@ -1,6 +1,5 @@
 wallet.model.Cashflow = function(amount, dest, desc) {
-	amount = amount || 0;
-	amount = Math.abs(amount);
+	amount = Math.abs(amount || 0);
 	this._dest = dest || wallet.helper.constants.INCOMING;
 	if (this._dest === wallet.helper.constants.OUTGOING) {
 		this._amount = -amount;
@@ -34,10 +33,10 @@ wallet.model.Cashflow.prototype = {
 		this._desc = description;
 	},
 
-	update: function(args) {
-		args = args || [this._amount, this._dest];
+	update: function() {
+		var args = [this._amount, this._dest];
 		if (wallet.helper.isFunction(this.onUpdate)) {
-			this.onUpdate(args);
+			this.onUpdate.apply(this, args);
 		}
 	},
 

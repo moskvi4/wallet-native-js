@@ -7,7 +7,16 @@
     <link rel="stylesheet" type="text/css" href="dist/main.css">
 </head>
 <body>
-    <script src="dist/all.js"></script>
-
+<script src="dist/all.js"></script>
+<ul id="cashflows">
+</ul>
+<script>
+    var list = document.getElementById('cashflows');
+    for (var i = 0; i < 10; i++) {
+        var view = new wallet.view.Cashflow(list);
+        var model = new wallet.model.Cashflow();
+        new wallet.controller.Cashflow(view, model);
+    }
+</script>
 </body>
 </html>

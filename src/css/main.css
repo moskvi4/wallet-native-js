@@ -1,0 +1,7 @@
+.cashflow-view {
+    background-color: lightgreen;
+}
+
+.cashflow-view.outgoing {
+    background-color: indianred;
+}
