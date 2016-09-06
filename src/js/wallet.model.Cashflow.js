@@ -1,54 +1,64 @@
-wallet.model.Cashflow = function(amount, dest, desc) {
-	amount = Math.abs(amount || 0);
-	this._dest = dest || wallet.helper.constants.INCOMING;
-	if (this._dest === wallet.helper.constants.OUTGOING) {
-		this._amount = -amount;
-	} else {
-		this._amount = amount;
-	}
-	this._desc = desc || '';
+wallet.model.Cashflow = function () {
+    this._dest = wallet.helper.constants.INCOMING;
+    this._amount = 0;
+    this._desc = '';
+    this._checked = false;
 };
 
 wallet.model.Cashflow.prototype = {
-	amount: function(amount) {
-		if (amount === undefined) {
-			return this._amount;
-		}
-		this._amount = amount;
-		this.update();
-	},
+    checked: function (checked) {
+        if (checked === undefined) {
+            return this._checked;
+        }
+        if (this._checked !== checked) {
+            this._checked = checked;
+            this.update();
+        }
+    },
 
-	destination: function(destination) {
-		if (destination === undefined) {
-			return this._dest;
-		}
-		this._dest = destination;
-		this.update();
-	},
+    amount: function (amount) {
+        if (amount === undefined) {
+            return this._amount;
+        }
+        if (this._amount !== amount) {
+            this._amount = Math.abs(+amount);
+            this.update();
+        }
+    },
 
-	description: function(description) {
-		if (description === undefined) {
-			return this._desc;
-		}
-		this._desc = description;
-	},
+    destination: function (destination) {
+        if (destination === undefined) {
+            return this._dest;
+        }
+        if (this._dest !== destination) {
+            this._dest = destination;
+            this.update();
+        }
+    },
 
-	update: function() {
-		var args = [this._amount, this._dest];
-		if (wallet.helper.isFunction(this.onUpdate)) {
-			this.onUpdate.apply(this, args);
-		}
-	},
+    description: function (description) {
+        if (description === undefined) {
+            return this._desc;
+        }
+        this._desc = description;
+    },
 
-	destroy: function() {
-		if (wallet.helper.isFunction(this.onDestroy)) {
-			this.onDestroy();
-		}
-		this.onDestroy = null;
-		this.onUpdate = null;
-	},
+    update: function () {
+        var args = [this._checked, this._amount, this._dest];
+        if (wallet.helper.isFunction(this.onUpdate)) {
+            this.onUpdate.apply(this, args);
+        }
+    },
 
-	onDestroy: null,
+    destroy: function () {
+        if (wallet.helper.isFunction(this.onDestroy)) {
+            this.onDestroy();
+        }
+        this.onDestroy = null;
+        this.onUpdate = null;
+    },
 
-	onUpdate: null
+    onDestroy: null,
+
+    onUpdate: null
 };

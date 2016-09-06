@@ -1,42 +1,39 @@
-wallet.controller.Cashflow = function(view, model) {
-	this._view = view;
-	this._model = model;
-	this.bindViewActions();
-	this.bindModelActions();
+wallet.controller.Cashflow = function (view, model) {
+    this._view = view;
+    this._model = model;
+    this.bindViewActions();
+    this.bindModelActions();
 };
 
 wallet.controller.Cashflow.prototype = {
-	bindViewActions: function() {
-		this._view.onUpdate = this.viewUpdate.bind(this);
-		this._view.onDestroy = this.viewDestroy.bind(this);
-	},
+    bindViewActions: function () {
+        this._view.onUpdate = this.viewOnUpdate.bind(this);
+        this._view.onDestroy = this.viewOnDestroy.bind(this);
+    },
 
-	bindModelActions: function() {
-		this._model.onUpdate = this.modelUpdate.bind(this);
-		this._model.onDestroy = this.modelDestroy.bind(this);
-	},
+    bindModelActions: function () {
+        this._model.onUpdate = this.modelOnUpdate.bind(this);
+        this._model.onDestroy = this.modelOnDestroy.bind(this);
+    },
 
-	viewUpdate: function(dest, amount, desc) {
-		if (this._model.destination() !== dest) {
-			this._model.destination(dest);
-		}
-		if (this._model.amount() !== amount) {
-			this._model.amount(amount);
-		}
-		if (this._model.description() !== desc) {
-			this._model.description(desc);
-		}
-	},
+    viewOnUpdate: function (checked, dest, amount, desc) {
+        this._model.checked(checked);
+        this._model.destination(dest);
+        this._model.amount(amount);
+        this._model.description(desc);
+    },
 
-	viewDestroy: function() {
+    viewOnDestroy: function () {
+        this._model.destroy();
+    },
 
-	},
+    modelOnUpdate: function (checked, amount, dest) {
+        this._view.setChecked(checked);
+        this._view.setAmount(amount);
+        this._view.setDestination(dest);
+    },
 
-	modelUpdate: function(dest, amount) {
-		console.log(dest, amount);
-	},
+    modelOnDestroy: function () {
 
-	modelDestroy: function() {
-
-	}
+    }
 };
